@@ -75,7 +75,8 @@ function war(p, c) {
     warDeck.push(playerDeck.pop());
     warDeck.push(compDeck.pop());
   }
-  playHand();
+  compDeckDiv.innerHTML = `<h1>WAR!</h1>`;
+  playerDeckDiv.innerHTML = `<h1>WAR!</h1>`;
 }
 
 function playHand() {
@@ -106,8 +107,7 @@ function playHand() {
     playerDeckDiv.innerHTML = "";
   } else {
     if (playerDeck.length && compDeck.length) {
-      compDeckDiv.innerHTML = `<h1>WAR!</h1>`;
-      playerDeckDiv.innerHTML = `<h1>WAR!</h1>`;
+      war(playerCard, compCard);
     }
   }
   playerCardDiv.innerHTML = `<h1>${playerCard}</h1>
