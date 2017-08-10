@@ -1,3 +1,9 @@
+let button = document.querySelector("button");
+button.addEventListener("click", playHand);
+
+let playerCardDiv = document.querySelector("#player-card");
+let compCardDiv = document.querySelector("#computer-card");
+
 
 function createDeck() {
   let deck = [];
@@ -49,15 +55,12 @@ let numDeck = makeValueDeck(freshDeck);
 
 let compDeck = numDeck.slice(0,26);
 let playerDeck = numDeck.slice(26);
-console.log(compDeck.length);
-console.log(playerDeck.length);
 
 let warDeck = [];
 let warNum = 0;
 let numHands = 0;
 
 function war(p, c) {
-  console.log("war");
   warNum += 1;
   warDeck.push(p);
   warDeck.push(c);
@@ -78,7 +81,9 @@ function playHand() {
   numHands += 1;
   let playerCard = playerDeck.pop();
   let compCard = compDeck.pop();
+
   if (playerCard > compCard) {
+    console.log("player wins");
     playerDeck.unshift(playerCard, compCard);
     if (warDeck.length) {
       for (let i = 0; i < warDeck.length; i++) {
@@ -87,6 +92,7 @@ function playHand() {
       warDeck = [];
     }
   } else if (compCard > playerCard) {
+    console.log("comp wins");
     compDeck.unshift(compCard, playerCard);
     if (warDeck.length) {
       for (let i = 0; i < warDeck.length; i++) {
@@ -99,10 +105,12 @@ function playHand() {
       war(playerCard, compCard);
     }
   }
+  playerCardDiv.innerHTML = `<h1>${playerCard}</h1>
+    <br>
+    <h5>${playerDeck.length}</h5>
+    `;
+  compCardDiv.innerHTML = `<h1>${compCard}</h1>
+    <br>
+    <h5>${compDeck.length}</h5>
+    `;
 }
-
-while (playerDeck.length > 0 && compDeck.length > 0) {
-  playHand();
-  console.log(playerDeck.length + " " + compDeck.length);
-}
-console.log("Num Hands " + numHands + " NumWars " + warNum);
