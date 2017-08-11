@@ -13,12 +13,12 @@ function createDeck() {
 
   for (let j = 0; j < suites.length; j++) {
     for (let i = 2; i < 11; i++) {
-      deck.push(i + suites[j]);
+      deck.push({"name":i + suites[j], "value": i});
     }
-    deck.push("J" + suites[j]);
-    deck.push("Q" + suites[j]);
-    deck.push("K" + suites[j]);
-    deck.push("A" + suites[j]);
+    deck.push({"name":"J" + suites[j], "value": 11});
+    deck.push({"name":"Q" + suites[j], "value": 12});
+    deck.push({"name":"K" + suites[j], "value": 13});
+    deck.push({"name":"A" + suites[j], "value": 14});
   }
   return shuffleDeck(deck);
 }
@@ -30,37 +30,16 @@ function shuffleDeck(deck) {
     deck[x] = deck[i];
     deck[i] = temp;
   }
+  console.log(deck);
   return(deck);
 }
 
-function makeValueDeck(deck) {
-  let valueDeck = [];
-  for (let i = 0; i < deck.length; i++) {
-    let num = deck[i].slice(0,1);
-    if (num === "A") {
-      valueDeck[i] = 14;
-    } else if (num === "K") {
-      valueDeck[i] = 13;
-    } else if (num === "Q") {
-      valueDeck[i] = 12;
-    } else if (num === "J") {
-      valueDeck[i] = 11;
-    } else {
-      valueDeck[i] = parseInt(deck[i]);
-    }
-  }
-  return valueDeck;
-}
-
 let freshDeck = createDeck();
-let numDeck = makeValueDeck(freshDeck);
 
-let compDeck = numDeck.slice(0,26);
-let playerDeck = numDeck.slice(26);
+let compDeck = freshDeck.slice(0,26);
+let playerDeck = freshDeck.slice(26);
 
 let warDeck = [];
-let warNum = 0;
-let numHands = 0;
 
 function war(p, c) {
   warDeck.push(p);
@@ -80,11 +59,10 @@ function war(p, c) {
 }
 
 function playHand() {
-  numHands += 1;
   let playerCard = playerDeck.pop();
   let compCard = compDeck.pop();
 
-  if (playerCard > compCard) {
+  if (playerCard.value > compCard.value) {
     playerDeck.unshift(playerCard, compCard);
     if (warDeck.length) {
       for (let i = 0; i < warDeck.length; i++) {
@@ -94,12 +72,11 @@ function playHand() {
     }
     playerDeckDiv.innerHTML = `<h1>Player Wins!</h1>`;
     compDeckDiv.innerHTML = "";
-  } else if (compCard > playerCard) {
-    console.log("comp wins");
+  } else if (compCard.value > playerCard.value) {
     compDeck.unshift(compCard, playerCard);
     if (warDeck.length) {
       for (let i = 0; i < warDeck.length; i++) {
-        playerDeck.unshift(warDeck[i]);
+        compDeck.unshift(warDeck[i]);
       }
       warDeck = [];
     }
@@ -110,11 +87,11 @@ function playHand() {
       war(playerCard, compCard);
     }
   }
-  playerCardDiv.innerHTML = `<h1>${playerCard}</h1>
+  playerCardDiv.innerHTML = `<h1>${playerCard.name}</h1>
     <br>
     <h1>${playerDeck.length}</h1>
     `;
-  compCardDiv.innerHTML = `<h1>${compCard}</h1>
+  compCardDiv.innerHTML = `<h1>${compCard.name}</h1>
     <br>
     <h1>${compDeck.length}</h1>
     `;
