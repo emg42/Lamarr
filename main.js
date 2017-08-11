@@ -59,7 +59,6 @@ function war(p, c) {
   playerDeckDiv.innerHTML = `<h1>WAR!</h1>`;
 }
 
-<<<<<<< HEAD
 function playHand() {
   let playerCard = playerDeck.pop();
   let compCard = compDeck.pop();
@@ -98,14 +97,11 @@ function playHand() {
     <h1>${compDeck.length}</h1>
     `;
 }
-=======
-let freshDeck = createDeck();
-let numDeck = makeValueDeck(freshDeck);
-console.log(freshDeck);
-console.log(numDeck);
+
+
 //=============STEPHEN ABOVE=================
 //=============CHRIS BELOW===================
-
+/*
 let playerCardArray = [];                                //all the cards the player has (26 to start)
 let computerCardArray = [];                              //all the cards the computer has (26 to start)
 
@@ -153,3 +149,4 @@ something.onclick = function() {                         //starts the game based
       } // end else
 } //end onclick fn
 >>>>>>> 35dd968610858c696b822b29b76f4d8bf1130b04
+*/
