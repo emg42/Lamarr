@@ -51,6 +51,7 @@ h2 {
   height: 80%;
   border: solid 2px black;
   display: flex;
+  flex-direction: column;
   margin-left: 20px;
 
 
